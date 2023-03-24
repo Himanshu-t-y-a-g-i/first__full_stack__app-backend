@@ -13,6 +13,6 @@ const schema = mongoose.Schema({
     images: Array
 })
 
-const model = mongoose.model("products", schema);
+const model = mongoose.model("product", schema);
 
 module.exports = { model };
