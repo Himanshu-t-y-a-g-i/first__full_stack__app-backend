@@ -19,7 +19,7 @@ authRoutes.post("/register", async (req, res) => {
                 res.send({ msg: e.message });
             }
         } else {
-            res.send({ msg: "user already present" });
+            res.status(400).send({ msg: "user already present" });
         }
     } else {
         res.send({ msg: "Invalid format" });
