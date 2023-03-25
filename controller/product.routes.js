@@ -97,13 +97,13 @@ routes.delete("/delete/:id", async (req, res) => {
                 await model.findByIdAndDelete(id);
                 res.send({ status: "success", msg: "product deleted" });
             } catch (e) {
-                res.send({ msg: e.message });
+                res.send({ msg: e.message, header: req.headers });
             }
         } else {
-            res.send({ msg: "product not found" })
+            res.send({ msg: "product not found", header: req.headers })
         }
     } else {
-        res.send({ msg: "unauthorized user", role });
+        res.send({ msg: "unauthorized user", header: req.headers });
     }
 })
 
