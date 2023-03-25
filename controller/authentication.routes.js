@@ -36,7 +36,7 @@ authRoutes.post("/login", async (req, res) => {
                 const token = tokenR(loginCheck.role);
                 const compare = await bcrypt.compare(password, loginCheck.password);
                 if (compare) {
-                    res.status(200).send({ status: "success", msg: "User logged in", token });
+                    res.status(200).send({ status: "success", msg: "User logged in", token, role: loginCheck.role });
                 } else {
                     res.status(400).send({ msg: "Invalid password" });
                 }
