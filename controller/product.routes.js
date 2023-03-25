@@ -102,7 +102,7 @@ routes.delete("/delete/:id", async (req, res) => {
             res.send({ msg: "product not found" })
         }
     } else {
-        res.send({ msg: "unauthorized user" });
+        res.send({ msg: "unauthorized user",role });
     }
 })
 
