@@ -16,13 +16,13 @@ authRoutes.post("/register", async (req, res) => {
                 await userData.save();
                 res.status(200).send({ msg: "registration success" });
             } catch (e) {
-                res.send({ msg: e.message });
+                res.status(400).send({ msg: e.message });
             }
         } else {
             res.status(400).send({ msg: "user already present" });
         }
     } else {
-        res.send({ msg: "Invalid format" });
+        res.status(400).send({ msg: "Invalid format" });
     }
 })
 
@@ -36,18 +36,18 @@ authRoutes.post("/login", async (req, res) => {
                 const token = tokenR(loginCheck.role);
                 const compare = await bcrypt.compare(password, loginCheck.password);
                 if (compare) {
-                    res.send({ status: "success", msg: "login success", token });
+                    res.status(200).send({ status: "success", msg: "login success", token });
                 } else {
-                    res.send({ msg: "invalid password" });
+                    res.status(400).send({ msg: "invalid password" });
                 }
             } else {
-                res.send({ msg: "user not found" });
+                res.status(400).send({ msg: "user not found" });
             }
         } catch (e) {
-            res.send({ msg: e.message });
+            res.status(400).send({ msg: e.message });
         }
     } else {
-        res.send({ msg: "data type not found" });
+        res.status(400).send({ msg: "data type not found" });
     }
 })
 
