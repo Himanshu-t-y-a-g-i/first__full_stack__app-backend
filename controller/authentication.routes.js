@@ -6,9 +6,9 @@ const { tokenR } = require("../auth&auth/jwt");
 
 
 authRoutes.post("/register", async (req, res) => {
-    const { username, email, dob, password } = req.body;
+    const { username, email, dob, password, role } = req.body;
     const preCheck = await model.findOne({ $or: [{ username }, { email }] });
-    if (username && email && dob && password) {
+    if (username && email && dob && password && role) {
         if (!preCheck) {
             try {
                 const hashPass = await bcrypt.hash(password, 12);
