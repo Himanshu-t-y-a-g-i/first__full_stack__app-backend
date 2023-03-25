@@ -89,7 +89,6 @@ routes.patch("/update/:id", async (req, res) => {
 
 routes.delete("/delete/:id", async (req, res) => {
     const { verify, role } = verifying(req.headers.token);
-    console.log(req.headers);
     if ((verify && role === "admin") || (verify && role === "seller")) {
         const { id } = req.params;
         if (id && model.findById(id)) {
