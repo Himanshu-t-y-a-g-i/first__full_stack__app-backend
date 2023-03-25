@@ -14,15 +14,15 @@ authRoutes.post("/register", async (req, res) => {
                 const hashPass = await bcrypt.hash(password, 12);
                 const userData = new model({ username, email, dob, password: hashPass });
                 await userData.save();
-                res.send({ msg: "registration success" });
+                res.status(200).send({ msg: "registration success" });
             } catch (e) {
                 res.send({ msg: e.message });
             }
         } else {
-            res.send({ msg: "user already present" });
+            res.status(400).send({ msg: "user already present" });
         }
     } else {
-        res.send({ msg: "Invalid format" });
+        res.status(400).send({ msg: "Invalid format" });
     }
 })
 
@@ -47,7 +47,7 @@ authRoutes.post("/login", async (req, res) => {
             res.send({ msg: e.message });
         }
     } else {
-        res.send({ msg: "data type not found" });
+        res.status(400).send({ msg: "data type not found" });
     }
 })
 
