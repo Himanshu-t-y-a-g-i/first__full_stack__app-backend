@@ -14,12 +14,12 @@ authRoutes.post("/register", async (req, res) => {
                 const hashPass = await bcrypt.hash(password, 12);
                 const userData = new model({ username, email, dob, password: hashPass });
                 await userData.save();
-                res.status(200).send({ msg: "registration success" });
+                res.status(200).send({ msg: "User has been registered", status: "success" });
             } catch (e) {
                 res.status(400).send({ msg: e.message });
             }
         } else {
-            res.status(400).send({ msg: "user already present" });
+            res.status(400).send({ msg: "User already present" });
         }
     } else {
         res.status(400).send({ msg: "Invalid format" });
@@ -36,18 +36,18 @@ authRoutes.post("/login", async (req, res) => {
                 const token = tokenR(loginCheck.role);
                 const compare = await bcrypt.compare(password, loginCheck.password);
                 if (compare) {
-                    res.status(200).send({ status: "success", msg: "login success", token });
+                    res.status(200).send({ status: "success", msg: "User logged in", token });
                 } else {
-                    res.status(400).send({ msg: "invalid password" });
+                    res.status(400).send({ msg: "Invalid password" });
                 }
             } else {
-                res.status(400).send({ msg: "user not found" });
+                res.status(400).send({ msg: "User not found" });
             }
         } catch (e) {
             res.status(400).send({ msg: e.message });
         }
     } else {
-        res.status(400).send({ msg: "data type not found" });
+        res.status(400).send({ msg: "Data type not found" });
     }
 })
 
