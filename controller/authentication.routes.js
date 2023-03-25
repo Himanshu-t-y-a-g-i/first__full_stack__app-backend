@@ -12,7 +12,7 @@ authRoutes.post("/register", async (req, res) => {
         if (!preCheck) {
             try {
                 const hashPass = await bcrypt.hash(password, 12);
-                const userData = new model({ username, email, dob, password: hashPass });
+                const userData = new model({ username, email, dob, role, password: hashPass });
                 await userData.save();
                 res.status(200).send({ msg: "User has been registered", status: "success" });
             } catch (e) {
