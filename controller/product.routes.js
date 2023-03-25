@@ -89,6 +89,7 @@ routes.patch("/update/:id", async (req, res) => {
 
 routes.delete("/delete/:id", async (req, res) => {
     const { verify, role } = verifying(req.headers.token);
+    console.log(req.headers);
     if ((verify && role === "admin") || (verify && role === "seller")) {
         const { id } = req.params;
         if (id && model.findById(id)) {
@@ -102,7 +103,7 @@ routes.delete("/delete/:id", async (req, res) => {
             res.send({ msg: "product not found" })
         }
     } else {
-        res.send({ msg: "unauthorized user",role });
+        res.send({ msg: "unauthorized user", role });
     }
 })
 
