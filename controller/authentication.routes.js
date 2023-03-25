@@ -14,7 +14,7 @@ authRoutes.post("/register", async (req, res) => {
                 const hashPass = await bcrypt.hash(password, 12);
                 const userData = new model({ username, email, dob, password: hashPass });
                 await userData.save();
-                res.send({ msg: "success" });
+                res.send({ msg: "registration success" });
             } catch (e) {
                 res.send({ msg: e.message });
             }
