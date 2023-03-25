@@ -19,10 +19,10 @@ authRoutes.post("/register", async (req, res) => {
                 res.send({ msg: e.message });
             }
         } else {
-            res.status(400).send({ msg: "user already present" });
+            res.send({ msg: "user already present" });
         }
     } else {
-        res.status(400).send({ msg: "Invalid format" });
+        res.send({ msg: "Invalid format" });
     }
 })
 
@@ -41,13 +41,13 @@ authRoutes.post("/login", async (req, res) => {
                     res.send({ msg: "invalid password" });
                 }
             } else {
-                res.status(404).send({ msg: "user not found" });
+                res.send({ msg: "user not found" });
             }
         } catch (e) {
             res.send({ msg: e.message });
         }
     } else {
-        res.status(400).send({ msg: "data type not found" });
+        res.send({ msg: "data type not found" });
     }
 })
 
