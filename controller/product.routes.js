@@ -8,7 +8,7 @@ routes.get("/", async (req, res) => {
     try {
         const query = req.query;
         let queryToSend = {};
-        let limit = 10;
+        let limit = query.limit || 10;
         let skip;
         if (query.max && query.min) {
             queryToSend = { $and: [{ rating: { $gt: query.min } }, { rating: { $lt: query.max } }] };
@@ -26,7 +26,8 @@ routes.get("/", async (req, res) => {
             skip = (+query.page - 1) * limit;
         }
         const products = await model.find(queryToSend).skip(skip).limit(limit);
-        res.status(200).send({ msg: products, status: "success" });
+        const length = await model.find();
+        res.status(200).send({ msg: products, status: "success", data: length.length, limit });
     } catch (e) {
         res.status(400).send({ msg: e.message });
     }
