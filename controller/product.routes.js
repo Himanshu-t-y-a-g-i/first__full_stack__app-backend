@@ -38,12 +38,12 @@ routes.get("/:id", async (req, res) => {
         try {
             const id = req.params.id;
             const product = await model.findById(id);
-            res.send({ msg: product, status: "success" });
+            res.status(200).send({ msg: product, status: "success" });
         } catch (e) {
-            res.send({ msg: e.message });
+            res.status(400).send({ msg: e.message });
         }
     } else {
-        res.send({ msg: "unauthorized user" });
+        res.status(400).send({ msg: "unauthorized user" });
     }
 })
 
@@ -55,15 +55,15 @@ routes.post("/add", async (req, res) => {
             try {
                 const newData = new model(req.body);
                 await newData.save();
-                res.send({ status: "success", msg: "product added" });
+                res.status(200).send({ status: "success", msg: "product added" });
             } catch (e) {
-                res.send({ msg: e.message });
+                res.status(400).send({ msg: e.message });
             }
         } else {
-            res.send({ msg: "invalid format" });
+            res.status(400).send({ msg: "invalid format" });
         }
     } else {
-        res.send({ msg: "unauthorized user" });
+        res.status(400).send({ msg: "unauthorized user" });
     }
 })
 
@@ -75,15 +75,15 @@ routes.patch("/update/:id", async (req, res) => {
         if (title || description || price || discountPercentage || rating || stock || brand || category || thumbnail || images) {
             try {
                 await model.findByIdAndUpdate(id, req.body);
-                res.send({ status: "success", msg: "product details updated" });
+                res.status(200).send({ status: "success", msg: "product details updated" });
             } catch (e) {
-                res.send({ msg: e.message });
+                res.status(400).send({ msg: e.message });
             }
         } else {
-            res.send({ msg: "data type not found" });
+            res.status(400).send({ msg: "data type not found" });
         }
     } else {
-        res.send({ msg: "unauthorized user" });
+        res.status(400).send({ msg: "unauthorized user" });
     }
 })
 
@@ -94,15 +94,15 @@ routes.delete("/delete/:id", async (req, res) => {
         if (id && model.findById(id)) {
             try {
                 await model.findByIdAndDelete(id);
-                res.send({ status: "success", msg: "product deleted" });
+                res.status(200).send({ status: "success", msg: "product deleted" });
             } catch (e) {
-                res.send({ msg: e.message, header: req.headers });
+                res.status(400).send({ msg: e.message, header: req.headers });
             }
         } else {
-            res.send({ msg: "product not found", header: req.headers })
+            res.status(400).send({ msg: "product not found", header: req.headers })
         }
     } else {
-        res.send({ msg: "unauthorized user", header: req.headers });
+        res.status(400).send({ msg: "unauthorized user", header: req.headers });
     }
 })
 
